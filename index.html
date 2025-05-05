@@ -20,7 +20,7 @@
       <section class="search-container">
         <div>
           <label for="search">
-            <i class="fas fa-search"></i> Search:
+            Search <i class="fas fa-search"></i>  :
             <input
               type="text"
               id="search"
@@ -28,114 +28,114 @@
             />
           </label>
         </div>
-        <div>
-          <h2 class="mood-filter-title"><i class="fas fa-filter"></i> Vibe Check:</h2>
+        <div class="mood-filter-container">
+          <h2 class="mood-filter-title">Vibe Check <i class="fas fa-filter"></i> : </h2>
           <div class="mood-filter-buttons">
-            <button><i class="fas fa-globe"></i> All</button>
-            <button><i class="fas fa-smile-beam"></i> Happy</button>
-            <button><i class="far fa-sad-tear"></i> Sad</button>
-            <button><i class="fas fa-fire"></i> Motivated</button>
-            <button><i class="fas fa-flushed"></i> Stressed</button>
-            <button><i class="far fa-surprise"></i> Scared</button>
+            <button>All</button>
+            <button>Happy <i class="fas fa-smile-beam"></i></button>
+            <button>Sad <i class="far fa-sad-tear"></i></button>
+            <button>Motivated <i class="fas fa-fire"></i></button>
+            <button>Stressed <i class="fas fa-flushed"></i></button>
+            <button>Scared <i class="far fa-surprise"></i></button>
           </div>
         </div>
       </section>
 
       <section class="journal-list-body">
-        <div class="journal-list-container">
+        <!-- <div class="journal-list-container">
           <div class="journal-list">
             <div class="journal-title">
-              <i class="fas fa-bookmark"></i>
-              <h2>"Great Day!"</h2>
+              <h2><i class="fas fa-bookmark"></i> "Great Day!"</h2>
             </div>
             <div class="journal-mood">
-              <p><i class="fas fa-heart"></i> Vibe: <i class="fas fa-smile-beam"></i> <span>Happy</span></p>
+              <p>Vibe <i class="fas fa-heart"></i> : <span>Happy</span> <i class="fas fa-smile-beam"></i> </p>
             </div>
             <div class="timestamp">
-              <p><i class="far fa-clock"></i> Posted: <span>2025-05-04 14:32</span></p>
+              <p>Posted <i class="far fa-clock"></i> : <span>2025-05-04 14:32</span></p>
             </div>
             <h3><i class="fas fa-align-left"></i> First 5 words in the journal data</h3>
           </div>
           <div class="journal-list">
             <div class="journal-title">
-              <i class="fas fa-bookmark"></i>
-              <h2>"Feeling Low"</h2>
+              <h2><i class="fas fa-bookmark"></i> "Great Day!"</h2>
             </div>
             <div class="journal-mood">
-              <p><i class="fas fa-heart"></i> Vibe: <i class="far fa-sad-tear"></i> <span>Sad</span></p>
+              <p>Vibe <i class="fas fa-heart"></i> : <span>Happy</span> <i class="fas fa-smile-beam"></i> </p>
             </div>
             <div class="timestamp">
-              <p><i class="far fa-clock"></i> Posted: <span>2025-05-03 20:15</span></p>
+              <p>Posted <i class="far fa-clock"></i> : <span>2025-05-04 14:32</span></p>
             </div>
             <h3><i class="fas fa-align-left"></i> First 5 words in the journal data</h3>
           </div>
           <div class="journal-list">
             <div class="journal-title">
-              <i class="fas fa-bookmark"></i>
-              <h2>"Workout Complete"</h2>
+              <h2><i class="fas fa-bookmark"></i> "Great Day!"</h2>
             </div>
             <div class="journal-mood">
-              <p><i class="fas fa-heart"></i> Vibe: <i class="fas fa-fire"></i> <span>Motivated</span></p>
+              <p>Vibe <i class="fas fa-heart"></i> : <span>Happy</span> <i class="fas fa-smile-beam"></i> </p>
             </div>
             <div class="timestamp">
-              <p><i class="far fa-clock"></i> Posted: <span>2025-05-02 08:45</span></p>
+              <p>Posted <i class="far fa-clock"></i> : <span>2025-05-04 14:32</span></p>
             </div>
             <h3><i class="fas fa-align-left"></i> First 5 words in the journal data</h3>
           </div>
-        </div>
+        </div> -->
         <div class="add-entry-button">
-          <button>
-            <i class="fas fa-plus-circle"></i> Drop a new Entry
-          </button>
-          <p><i class="fas fa-pen-fancy"></i> How are you feeling today? Journal it out</p>
+            <p>How are you feeling today? Journal it out! <span><i class="fas fa-pen-fancy"></i></span></p>
+            <button>
+              Drop a new Entry <i class="fas fa-plus-circle"></i>
+            </button>
         </div>
       </section>
 
-      <section class="journal-entry-modal">
+      <section class="journal-entry-modal hidden">
         <h1 class="journal-entry-title"><i class="fas fa-pen-alt"></i> New Log</h1>
         <div class="journal-content">
-          <label for="journal-entry-title"><i class="fas fa-heading"></i> Title: <input id="journal-detail-title" type="text" placeholder="Today was..."></label>
-          <label for="journal-entry-textarea"
-            ><i class="fas fa-align-left"></i> Content:
+          <div>
+            <label for="journal-entry-title">Title <i class="fas fa-heading"></i> : <input id="journal-detail-title" type="text" placeholder="Today was..."></label>
+            <label for="journal-mood-dropdown">
+                Vibe <i class="fas fa-heart"></i> :
+                <select name="journal-mood-dropdown" id="journal-mood-dropdown">
+                    <option value="happy">Happy <i class="fas fa-smile-beam"></i> </option>
+                    <option value="sad">Sad <i class="far fa-sad-tear"></i></option>
+                    <option value="motivated">Motivated <i class="fas fa-fire"></i></option>
+                    <option value="stressed">Stressed <i class="fas fa-flushed"></i></option>
+                    <option value="scared">Scared <i class="far fa-surprise"></i></option>
+                </select>
+              </label>
+          </div>
+          <div class="textarea-container">
+            <label for="journal-entry-textarea"
+            >
+            Content <i class="fas fa-align-left"></i> :
             <textarea
               id="journal-entry-textarea"
-              rows="10"
-              cols="30"
               placeholder="Dear Mood Log..."
             ></textarea>
           </label>
-          <label for="journal-mood-dropdown">
-            <i class="fas fa-heart"></i> Vibe:
-            <select name="journal-mood-dropdown" id="journal-mood-dropdown">
-                <option value="happy"><i class="fas fa-smile-beam"></i> Happy</option>
-                <option value="sad"><i class="far fa-sad-tear"></i> Sad</option>
-                <option value="motivated"><i class="fas fa-fire"></i> Motivated</option>
-                <option value="stressed"><i class="fas fa-flushed"></i> Stressed</option>
-                <option value="scared"><i class="far fa-surprise"></i> Scared</option>
-            </select>
-          </label>
+          </div>
         </div>
         <div class="journal-entry-buttons">
-            <button><i class="fas fa-save"></i> Save Entry</button>
-            <button><i class="fas fa-times"></i> Cancel</button>
+            <button>Save Entry <i class="fas fa-save"></i></button>
+            <button>Cancel <i class="fas fa-times"></i></button>
         </div>
       </section>
 
-      <section class="journal-detail-container">
+      <section class="journal-detail-container hidden">
           <h1 class="journal-detail-container-title"><i class="fas fa-book-open"></i> Journal Title</h1>
         <div class="journal-top-content">
-            <p class="journal-detail-title"><i class="fas fa-heading"></i> Title: <span>Great Day!</span></p>
-            <p class="journal-detail-title"><i class="fas fa-heart"></i> Vibe: <i class="fas fa-smile-beam"></i> <span>Happy</span></p>
-            <p class="journal-detail-title"><i class="far fa-clock"></i> Time: <span>2025-05-04 14:32</span></p>
+            <p class="journal-detail-title">Title <i class="fas fa-heading"></i> : <span>Great Day!</span></p>
+            <p class="journal-detail-title">Vibe <i class="fas fa-heart"></i> : <span>Happy</span> <i class="fas fa-smile-beam"></i></p>
+            <p class="journal-detail-title">Time <i class="far fa-clock"></i> : <span>2025-05-04 14:32</span></p>
         </div>
         <div class="journal-detail-content">
             <h2><i class="fas fa-align-left"></i> Content:</h2>
             <p class="journal-detail-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
         </div>
         <div class="journal-detail-buttons">
-            <button><i class="fas fa-edit"></i> Edit Entry</button>
-            <button><i class="fas fa-trash-alt"></i> Delete Entry</button>
-            <button><i class="fas fa-arrow-left"></i> Back to List</button>
+            <button>Edit Entry <i class="fas fa-edit"></i></button>
+            <button>Delete Entry <i class="fas fa-trash-alt"></i></button>
+            <button>Back to List <i class="fas fa-arrow-left"></i></button>
         </div>    
       </section>
     </main>
