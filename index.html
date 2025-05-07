@@ -7,12 +7,12 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="index.css" />
     <title>My Journal</title>
   </head>
 
   <body>
-    <main class="main-container">
+    <main class="main-container" id="main-container">
       <section class="main-header">
         <h1><i class="fas fa-book-open"></i> My Mood Log</h1>
       </section>
@@ -20,7 +20,7 @@
       <section class="search-container">
         <div>
           <label for="search">
-            Search <i class="fas fa-search"></i>  :
+            Search <i class="fas fa-search"></i> :
             <input
               type="text"
               id="search"
@@ -29,7 +29,9 @@
           </label>
         </div>
         <div class="mood-filter-container">
-          <h2 class="mood-filter-title">Vibe Check <i class="fas fa-filter"></i> : </h2>
+          <h2 class="mood-filter-title">
+            Vibe Check <i class="fas fa-filter"></i> :
+          </h2>
           <div class="mood-filter-buttons">
             <button>All</button>
             <button>Happy <i class="fas fa-smile-beam"></i></button>
@@ -81,65 +83,101 @@
           </div>
         </div> -->
         <div class="add-entry-button">
-            <p>How are you feeling today? Journal it out! <span><i class="fas fa-pen-fancy"></i></span></p>
-            <button id="journal-display-button">
-              Drop a new Entry <i class="fas fa-plus-circle"></i>
-            </button>
+          <p>
+            How are you feeling today? Journal it out!
+            <span><i class="fas fa-pen-fancy"></i></span>
+          </p>
+          <button id="journal-display-button">
+            Drop a new Entry <i class="fas fa-plus-circle"></i>
+          </button>
         </div>
       </section>
 
-      <section class="journal-entry-modal-wrapper hidden" id="journal-entry-modal-wrapper">
-        <div class="journal-entry-modal">
-            <h1 class="journal-entry-title"><i class="fas fa-pen-alt"></i> New Log</h1>
-            <div class="journal-content">
-              <div>
-                <label for="journal-entry-title">Title <i class="fas fa-heading"></i> : <input id="journal-detail-title" type="text" placeholder="Today was..."></label>
-                <label for="journal-mood-dropdown">
-                    Vibe <i class="fas fa-heart"></i> :
-                    <select name="journal-mood-dropdown" id="journal-mood-dropdown">
-                        <option value="happy">Happy <i class="fas fa-smile-beam"></i> </option>
-                        <option value="sad">Sad <i class="far fa-sad-tear"></i></option>
-                        <option value="motivated">Motivated <i class="fas fa-fire"></i></option>
-                        <option value="stressed">Stressed <i class="fas fa-flushed"></i></option>
-                        <option value="scared">Scared <i class="far fa-surprise"></i></option>
-                    </select>
-                  </label>
-              </div>
-              <div class="textarea-container">
-                <label for="journal-entry-textarea"
-                >
+      <section class="journal-entry-modal hidden" id="journal-entry-modal">
+        <h1 class="journal-entry-title">
+          <i class="fas fa-pen-alt"></i> New Log
+        </h1>
+        <form id="journal-entry-form">
+          <div class="journal-content">
+            <div>
+              <label for="journal-entry-title"
+                >Title <i class="fas fa-heading"></i> :
+                <input
+                name="journal-entry-title"
+                  id="journal-detail-title"
+                  type="text"
+                  placeholder="Today was..."
+              /></label>
+              <label for="journal-mood-dropdown">
+                Vibe <i class="fas fa-heart"></i> :
+                <select name="journal-mood-dropdown" id="journal-mood-dropdown">
+                  <option value="happy">
+                    Happy <i class="fas fa-smile-beam"></i>
+                  </option>
+                  <option value="sad">Sad <i class="far fa-sad-tear"></i></option>
+                  <option value="motivated">
+                    Motivated <i class="fas fa-fire"></i>
+                  </option>
+                  <option value="stressed">
+                    Stressed <i class="fas fa-flushed"></i>
+                  </option>
+                  <option value="scared">
+                    Scared <i class="far fa-surprise"></i>
+                  </option>
+                </select>
+              </label>
+            </div>
+            <div class="textarea-container">
+              <label for="journal-entry-textarea">
                 Content <i class="fas fa-align-left"></i> :
                 <textarea
+                name="journal-entry-textarea"
                   id="journal-entry-textarea"
                   placeholder="Dear Mood Log..."
                 ></textarea>
               </label>
-              </div>
             </div>
-            <div class="journal-entry-buttons">
-                <button>Save Entry <i class="fas fa-save"></i></button>
-                <button id="hide-journal-entry-modal">Cancel <i class="fas fa-times"></i></button>
-            </div>
-        </div>
+          </div>
+          <div class="journal-entry-buttons">
+            <button type="submit">Save Entry <i class="fas fa-save"></i></button>
+            <button type="button" id="hide-journal-entry-modal">
+              Cancel <i class="fas fa-times"></i>
+            </button>
+          </div>
+        </form>
       </section>
 
-      <section class="journal-detail-container-wrapper hidden" id="journal-detail-container-wrapper">
-        <div class="journal-detail-container">
-            <h1 class="journal-detail-container-title"><i class="fas fa-book-open"></i> Journal Title</h1>
-          <div class="journal-top-content">
-              <p class="journal-detail-title">Title <i class="fas fa-heading"></i> : <span>Great Day!</span></p>
-              <p class="journal-detail-title">Vibe <i class="fas fa-heart"></i> : <span>Happy</span> <i class="fas fa-smile-beam"></i></p>
-              <p class="journal-detail-title">Time <i class="far fa-clock"></i> : <span>2025-05-04 14:32</span></p>
-          </div>
-          <div class="journal-detail-content">
-              <h2><i class="fas fa-align-left"></i> Content:</h2>
-              <p class="journal-detail-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-          </div>
-          <div class="journal-detail-buttons">
-              <button>Edit Entry <i class="fas fa-edit"></i></button>
-              <button>Delete Entry <i class="fas fa-trash-alt"></i></button>
-              <button id="back-to-list-button">Back to List <i class="fas fa-arrow-left"></i></button>
-          </div>    
+      <section class="journal-detail-container hidden" id="journal-detail-container">
+        <h1 class="journal-detail-container-title">
+          <i class="fas fa-book-open"></i> Journal Title
+        </h1>
+        <div class="journal-top-content">
+          <p class="journal-detail-title">
+            Title <i class="fas fa-heading"></i> : <span>Great Day!</span>
+          </p>
+          <p class="journal-detail-title">
+            Vibe <i class="fas fa-heart"></i> : <span>Happy</span>
+            <i class="fas fa-smile-beam"></i>
+          </p>
+          <p class="journal-detail-title">
+            Time <i class="far fa-clock"></i> : <span>2025-05-04 14:32</span>
+          </p>
+        </div>
+        <div class="journal-detail-content">
+          <h2><i class="fas fa-align-left"></i> Content:</h2>
+          <p class="journal-detail-text">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat.
+          </p>
+        </div>
+        <div class="journal-detail-buttons">
+          <button>Edit Entry <i class="fas fa-edit"></i></button>
+          <button>Delete Entry <i class="fas fa-trash-alt"></i></button>
+          <button id="back-to-list-button">
+            Back to List <i class="fas fa-arrow-left"></i>
+          </button>
         </div>
       </section>
     </main>
