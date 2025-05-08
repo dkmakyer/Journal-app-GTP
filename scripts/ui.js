@@ -36,14 +36,10 @@ journalEntryForm.addEventListener("submit", (e) => {
     journalEntryForm.reset();
     journalEntryModal.classList.add("hidden");
 
-    renderUI(); 
+    renderJournal();
   } catch (error) {
     console.log("error", error);
   }
-});
-
-document.getElementById("back-to-list-button").addEventListener("click", () => {
-  journalDetailContainer.classList.add("hidden");
 });
 
 document
@@ -58,35 +54,85 @@ document
     journalEntryModal.classList.add("hidden");
   });
 
-export function renderUI() {
+const moodIcon = {
+  happy: "fa-smile-beam",
+  sad: "fa-sad-tear",
+  motivated: "fa-fire",
+  stressed: "fa-flushed",
+  scared: "fa-surprise",
+};
+
+export function renderJournal() {
   journalListContainer.innerHTML = "";
 
   // To render the journal
-  journalArray.map((journalList) => {
-    const moodIcon = {
-      happy: "fa-smile-beam",
-      sad: "fa-sad-tear",
-      motivated: "fa-fire",
-      stressed: "fa-flushed",
-      scared: "fa-surprise",
-    };
-
-    let currentMood = moodIcon[journalList.journal_mood_dropdown];
+  journalArray.forEach((journalList) => {
+    const currentMood = moodIcon[journalList.journal_mood_dropdown];
     journalListContainer.innerHTML += `
-    <div class="journal-list">
-            <div class="journal-title">
-              <h2><i class="fas fa-bookmark"></i> ${journalList.journal_detail_title}</h2>
-            </div>
-            <div class="journal-mood">
-              <p>Vibe <i class="fas fa-heart"></i> : <span>${journalList.journal_mood_dropdown}</span> <i class="fas ${currentMood}"></i> </p>
-            </div>
-            <div class="timestamp">
-              <p>Posted <i class="far fa-clock"></i> : <span>${journalList.id}</span></p>
-            </div>
-            <h3><i class="fas fa-align-left"></i> ${journalList.journal_entry_textarea}</h3>
-          </div>
-`;
+      <div class="journal-list" data-id="${journalList.id}">
+        <div class="journal-title">
+          <h2><i class="fas fa-bookmark"></i> ${journalList.journal_detail_title}</h2>
+        </div>
+        <div class="journal-mood">
+          <p>Vibe <i class="fas fa-heart"></i> : <span>${journalList.journal_mood_dropdown}</span> <i class="fas ${currentMood}"></i> </p>
+        </div>
+        <div class="timestamp">
+          <p>Posted <i class="far fa-clock"></i> : <span>${journalList.id}</span></p>
+        </div>
+        <h3><i class="fas fa-align-left"></i> ${journalList.journal_entry_textarea}</h3>
+      </div>
+    `;
+  });
+
+  journalListContainer.addEventListener('click', (event) => {
+    const journalElement = event.target.closest('.journal-list');
+    if (journalElement) {
+      const journalId = journalElement.dataset.id;
+      const journal = journalArray.find(j => j.id === journalId);
+      if (journal) {
+        showJournalDetail(journal);
+        journalDetailContainer.classList.remove("hidden");
+      }
+    }
   });
 }
+function showJournalDetail(journalList) {
+  journalDetailContainer.innerHTML = "";
 
-document.addEventListener("DOMContentLoaded", () => renderUI());
+  let currentMood = moodIcon[journalList.journal_mood_dropdown];
+  journalDetailContainer.innerHTML = `<h1 class="journal-detail-container-title">
+          <i class="fas fa-book-open"></i> ${journalList.journal_detail_title.toUpperCase()}
+          </h1>
+          <div class="journal-top-content">
+          <p class="journal-detail-mood">
+            Vibe <i class="fas fa-heart"></i> : <span>${journalList.journal_mood_dropdown}</span>
+            <i class="fas ${currentMood}"></i>
+            </p>
+            <p class="journal-detail-timestamp">
+            Time <i class="far fa-clock"></i> : <span>${journalList.id}</span>
+            </p>
+            </div>
+            <div class="journal-detail-content">
+            <h2><i class="fas fa-align-left"></i> Content:</h2>
+            <p class="journal-detail-text">
+          ${journalList.journal_entry_textarea}
+          </p>
+          </div>
+          <div class="journal-detail-buttons">
+          <button id="journal-edit-button">Edit Entry <i class="fas fa-edit"></i></button>
+          <button id="journal-delete-button">Delete Entry <i class="fas fa-trash-alt"></i></button>
+          <button id="back-to-list-button">
+            Back to List <i class="fas fa-arrow-left"></i>
+            </button>
+            </div>`;
+
+  document
+    .getElementById("back-to-list-button")
+    .addEventListener("click", () => {
+      journalDetailContainer.classList.add("hidden");
+    });
+
+
+}
+
+document.addEventListener("DOMContentLoaded", () => renderJournal());
