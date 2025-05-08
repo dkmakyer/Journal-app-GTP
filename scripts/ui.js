@@ -97,7 +97,7 @@ export function renderJournal() {
         <div class="timestamp">
           <p>Posted <i class="far fa-clock"></i> : <span>${journalList.id}</span></p>
         </div>
-        <h3><i class="fas fa-align-left"></i> ${journalList.journal_entry_textarea}</h3>
+        <h3><i class="fas fa-align-left"></i> ${journalList.journal_entry_textarea.substring(0, 100)}...</h3>
       </div>
     `;
   });
@@ -173,7 +173,6 @@ function showJournalDetail(journalList) {
       }
     }
   });
-
 }
 
 function rePopulateForm(journal) {
@@ -183,6 +182,45 @@ function rePopulateForm(journal) {
     
     //create an id for the journal to be edited
     journalEntryForm.dataset.editingId = journal.id;
+}
+
+
+document.getElementById("search-input").addEventListener("input", (e) => {
+  const searchValue = e.target.value.toLowerCase();
+  
+  const result = journalArray.filter(journal => 
+    journal.journal_detail_title.toLowerCase().includes(searchValue) ||
+    journal.journal_entry_textarea.toLowerCase().includes(searchValue)
+  );
+  
+  renderSearchResults(result); 
+});
+
+function renderSearchResults(result) {
+  journalListContainer.innerHTML = "";
+  
+  if (result.length === 0) {
+    journalListContainer.innerHTML = `<p class="no-results">No matching journals found</p>`;
+    return;
+  }
+
+  result.forEach(journal => {
+    const currentMood = moodIcon[journal.journal_mood_dropdown];
+    journalListContainer.innerHTML += `
+      <div class="journal-list" data-id="${journal.id}">
+        <div class="journal-title">
+          <h2><i class="fas fa-bookmark"></i> ${journal.journal_detail_title}</h2>
+        </div>
+        <div class="journal-mood">
+          <p>Vibe <i class="fas fa-heart"></i> : <span>${journal.journal_mood_dropdown}</span> <i class="fas ${currentMood}"></i></p>
+        </div>
+        <div class="timestamp">
+          <p>Posted <i class="far fa-clock"></i> : <span>${journal.id}</span></p>
+        </div>
+        <h3><i class="fas fa-align-left"></i> ${journal.journal_entry_textarea.substring(0, 100)}...</h3>
+      </div>
+    `;
+  });
 }
 
 document.addEventListener("DOMContentLoaded", () => renderJournal());
