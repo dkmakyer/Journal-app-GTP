@@ -12,35 +12,53 @@ console.log(journalArray);
 // Extract the form data at once
 journalEntryForm.addEventListener("submit", (e) => {
   e.preventDefault();
+  populateForm();
+});
 
+function populateForm() {
   try {
     const formData = new FormData(journalEntryForm);
     const journalEntry = Object.fromEntries(formData.entries());
+    
+    const isEdit = journalEntryForm.dataset.editingId;
+    
+    if (isEdit) {
+      //find the journal to edit by its index
+      const index = journalArray.findIndex(entry => entry.id === isEdit);
+      if (index !== -1) {
+        journalArray[index] = {
+          ...journalArray[index],
+          ...journalEntry
+        };
+      }
+      delete journalEntryForm.dataset.editingId;
+    } else {
 
-    const now = new Date();
-    const timeCreated = `${now.getFullYear()}-${String(
-      now.getMonth() + 1
-    ).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")} ${String(
-      now.getHours()
-    ).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
+      const now = new Date();
+      const timeCreated = `${now.getFullYear()}-${String(
+        now.getMonth() + 1
+      ).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")} ${String(
+        now.getHours()
+      ).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
 
-    journalEntry.id = timeCreated;
+      journalEntry.id = timeCreated;
+      journalArray.push(journalEntry);
+    }
 
-    journalArray.push(journalEntry);
-    // Store the entire array
     localStorage.setItem("journalArray", JSON.stringify(journalArray));
-
-    // Store the individual entry for faster search
-    localStorage.setItem(`entry_${timeCreated}`, JSON.stringify(journalEntry)); // Saved them with the time created to make the key in the local storage unique
+    
+    if (!isEdit) {//store journal in local storage it its not something you are editing
+      localStorage.setItem(`entry_${journalEntry.id}`, JSON.stringify(journalEntry));
+    }
 
     journalEntryForm.reset();
     journalEntryModal.classList.add("hidden");
-
     renderJournal();
+    
   } catch (error) {
     console.log("error", error);
   }
-});
+}
 
 document
   .getElementById("journal-display-button")
@@ -96,6 +114,7 @@ export function renderJournal() {
     }
   });
 }
+
 function showJournalDetail(journalList) {
   journalDetailContainer.innerHTML = "";
 
@@ -132,7 +151,38 @@ function showJournalDetail(journalList) {
       journalDetailContainer.classList.add("hidden");
     });
 
+  document.getElementById("journal-edit-button").addEventListener("click", () => {
+    journalDetailContainer.classList.add("hidden");
+    journalEntryModal.classList.remove("hidden");
+    //function to populate the input with the already existing data
+    rePopulateForm(journalList);
+  });
 
+  document.getElementById("journal-delete-button").addEventListener("click", () => {
+    if (confirm("Are you sure you want to delete this journal?")) {
+      const index = journalArray.findIndex(entry => entry.id === journalList.id);
+      
+      if (index !== -1) {
+        journalArray.splice(index, 1);
+        
+        localStorage.setItem("journalArray", JSON.stringify(journalArray));
+        localStorage.removeItem(`entry_${journalList.id}`);
+        
+        journalDetailContainer.classList.add("hidden");
+        renderJournal();
+      }
+    }
+  });
+
+}
+
+function rePopulateForm(journal) {
+    document.getElementById('journal-detail-title').value = journal.journal_detail_title;
+    document.getElementById('journal-mood-dropdown').value = journal.journal_mood_dropdown;
+    document.getElementById('journal-entry-textarea').value = journal.journal_entry_textarea;
+    
+    //create an id for the journal to be edited
+    journalEntryForm.dataset.editingId = journal.id;
 }
 
 document.addEventListener("DOMContentLoaded", () => renderJournal());
