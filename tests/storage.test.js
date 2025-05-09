@@ -8,8 +8,7 @@ import {
   } from '../scripts/journal';
 
   /**jest-environment jsdom */
-  
-  // Mock the storage module completely
+
   jest.mock('../scripts/storage', () => ({
     getJournalsFromStorage: jest.fn().mockReturnValue([]),
     saveJournalsToStorage: jest.fn(),
