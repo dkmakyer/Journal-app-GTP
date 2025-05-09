@@ -22,11 +22,9 @@ import {
     let mockEntries;
   
     beforeEach(() => {
-      // Clear the array and reset mocks
       journalArray.length = 0;
       jest.clearAllMocks();
-  
-      // Setup test data
+
       mockEntries = [
         { 
           id: '2023-01-01 12:00', 
@@ -42,10 +40,8 @@ import {
         }
       ];
   
-      // Initialize with test data
       journalArray.push(...mockEntries);
       
-      // Mock FormData
       mockFormData = {
         entries: jest.fn().mockReturnValue([
           ['journal_detail_title', 'Test Title'],
@@ -61,7 +57,7 @@ import {
         
         expect(result.id).toMatch(/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/);
         expect(result.journal_detail_title).toBe('Test Title');
-        expect(journalArray).toHaveLength(3); // 2 initial + 1 new
+        expect(journalArray).toHaveLength(3); 
       });
     });
   

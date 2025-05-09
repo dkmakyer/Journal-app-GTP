@@ -7,10 +7,10 @@ import {
   filterJournalsByMood
 } from './journal.js';
 
-const journalEntryModal = document.getElementById("journal-entry-modal");
-const journalDetailContainer = document.getElementById("journal-detail-container");
-const journalEntryForm = document.getElementById("journal-entry-form");
-const journalListContainer = document.getElementById("journal-list-container");
+export const journalEntryModal = document.getElementById("journal-entry-modal");
+export const journalDetailContainer = document.getElementById("journal-detail-container");
+export const journalEntryForm = document.getElementById("journal-entry-form");
+export const journalListContainer = document.getElementById("journal-list-container");
 
 const moodIcon = {
   happy: "fa-smile-beam",
@@ -67,7 +67,7 @@ export function initializeEventListeners() {
   });
 }
 
-function handleFormSubmit() {
+export function handleFormSubmit() {
   try {
       const formData = new FormData(journalEntryForm);
       const isEdit = journalEntryForm.dataset.editingId;
@@ -127,7 +127,7 @@ export function renderJournalList(journals = journalArray) {
 }
 
 // render the Journal detail 
-function showJournalDetail(journal) {
+export function showJournalDetail(journal) {
   journalDetailContainer.innerHTML = "";
   journalDetailContainer.classList.remove("hidden");
 
@@ -180,7 +180,7 @@ function showJournalDetail(journal) {
 }
 
 // edit the form
-function rePopulateForm(journal) {
+export function rePopulateForm(journal) {
   document.getElementById('journal-detail-title').value = journal.journal_detail_title;
   document.getElementById('journal-mood-dropdown').value = journal.journal_mood_dropdown;
   document.getElementById('journal-entry-textarea').value = journal.journal_entry_textarea;
@@ -188,7 +188,7 @@ function rePopulateForm(journal) {
 }
 
 // Filtered journals rendering
-function renderFilteredJournals(filteredJournals, moodText) {
+export function renderFilteredJournals(filteredJournals, moodText) {
   journalListContainer.innerHTML = '';
   
   if (filteredJournals.length === 0) {
