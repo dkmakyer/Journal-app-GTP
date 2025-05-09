@@ -83,7 +83,6 @@ const moodIcon = {
 export function renderJournal() {
   journalListContainer.innerHTML = "";
 
-  // To render the journal
   journalArray.forEach((journalList) => {
     const currentMood = moodIcon[journalList.journal_mood_dropdown];
     journalListContainer.innerHTML += `
@@ -185,6 +184,7 @@ function rePopulateForm(journal) {
 }
 
 
+//search input functionality
 document.getElementById("search-input").addEventListener("input", (e) => {
   const searchValue = e.target.value.toLowerCase();
   
@@ -222,5 +222,64 @@ function renderSearchResults(result) {
     `;
   });
 }
+
+// Add mood filter functionality for buttons
+const moodFilterButtons = document.querySelector('.mood-filter-buttons');
+
+const moodMap = {
+  'Happy': 'happy',
+  'Sad': 'sad',
+  'Motivated': 'motivated',
+  'Stressed': 'stressed',
+  'Scared': 'scared'
+};
+
+moodFilterButtons.addEventListener('click', (e) => {
+  if (e.target.tagName === 'BUTTON') {
+    const moodText = e.target.textContent.trim();
+    
+    if (moodText === 'All') {
+      renderJournal();
+    } else {
+      const moodValue = moodMap[moodText];
+      const filteredJournals = journalArray.filter(journal => 
+        journal.journal_mood_dropdown === moodValue
+      );
+      
+      renderFilteredJournals(filteredJournals, moodText);
+    }
+  }
+});
+
+function renderFilteredJournals(filteredJournals, moodText) {
+  journalListContainer.innerHTML = '';
+  
+  if (filteredJournals.length === 0) {
+    journalListContainer.innerHTML = `
+      <p class="no-results">No ${moodText} journals found</p>
+    `;
+    return;
+  }
+  
+  filteredJournals.forEach(journal => {
+    const currentMood = moodIcon[journal.journal_mood_dropdown];
+    journalListContainer.innerHTML += `
+      <div class="journal-list" data-id="${journal.id}">
+        <div class="journal-title">
+          <h2><i class="fas fa-bookmark"></i> ${journal.journal_detail_title}</h2>
+        </div>
+        <div class="journal-mood">
+          <p>Vibe <i class="fas fa-heart"></i> : <span>${journal.journal_mood_dropdown}</span> <i class="fas ${currentMood}"></i></p>
+        </div>
+        <div class="timestamp">
+          <p>Posted <i class="far fa-clock"></i> : <span>${journal.id}</span></p>
+        </div>
+        <h3><i class="fas fa-align-left"></i> ${journal.journal_entry_textarea.substring(0, 100)}...</h3>
+      </div>
+    `;
+  });
+}
+
+
 
 document.addEventListener("DOMContentLoaded", () => renderJournal());
